@@ -1,4 +1,4 @@
-# talk resources
+# Resources for talks and presentations
 
 This repository contains resources and materials related to various talks and presentations. It includes slides, manifests and other relevant materials.
 
