@@ -160,7 +160,7 @@ spec:
     users:
     - name: capv
       sshAuthorizedKeys:
-      - ""
+      - "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOzOVtEy7MPMFajj+LdD0JUEbj1Aq8P9leD5Hfyj87yQ"
       sudo: ALL=(ALL) NOPASSWD:ALL
   machineTemplate:
     spec:
