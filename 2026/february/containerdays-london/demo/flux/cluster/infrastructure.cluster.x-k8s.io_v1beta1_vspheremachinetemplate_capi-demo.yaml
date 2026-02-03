@@ -1,0 +1,25 @@
+apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
+kind: VSphereMachineTemplate
+metadata:
+  name: capi-demo
+  namespace: default
+spec:
+  template:
+    spec:
+      cloneMode: linkedClone
+      datacenter: giant-swarm
+      datastore: nfs_vm1
+      diskGiB: 25
+      folder: capi-talk
+      memoryMiB: 8192
+      network:
+        devices:
+        - dhcp4: true
+          networkName: v500-data
+      numCPUs: 2
+      os: Linux
+      powerOffMode: trySoft
+      resourcePool: '*/Resources'
+      server: 10.201.23.1
+      storagePolicyName: ""
+      template: ubuntu-2204-kube-v1.34.0

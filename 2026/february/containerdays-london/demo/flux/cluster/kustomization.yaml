@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - addons.cluster.x-k8s.io_v1beta2_clusterresourceset_capi-demo-crs-0.yaml
+  - bootstrap.cluster.x-k8s.io_v1beta2_kubeadmconfigtemplate_capi-demo-md-0.yaml
+  - cluster.x-k8s.io_v1beta2_cluster_capi-demo.yaml
+  - cluster.x-k8s.io_v1beta2_machinedeployment_capi-demo-md-0.yaml
+  - controlplane.cluster.x-k8s.io_v1beta2_kubeadmcontrolplane_capi-demo.yaml
+  - infrastructure.cluster.x-k8s.io_v1beta1_vspherecluster_capi-demo.yaml
+  - infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-worker.yaml
+  - infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo.yaml
+  - v1_configmap_cpi-manifests.yaml
+  - v1_configmap_csi-manifests.yaml

@@ -1,0 +1,28 @@
+apiVersion: cluster.x-k8s.io/v1beta2
+kind: MachineDeployment
+metadata:
+  labels:
+    cluster.x-k8s.io/cluster-name: capi-demo
+  name: capi-demo-md-0
+  namespace: default
+spec:
+  clusterName: capi-demo
+  replicas: 3
+  selector:
+    matchLabels: {}
+  template:
+    metadata:
+      labels:
+        cluster.x-k8s.io/cluster-name: capi-demo
+    spec:
+      bootstrap:
+        configRef:
+          apiGroup: bootstrap.cluster.x-k8s.io
+          kind: KubeadmConfigTemplate
+          name: capi-demo-md-0
+      clusterName: capi-demo
+      infrastructureRef:
+        apiGroup: infrastructure.cluster.x-k8s.io
+        kind: VSphereMachineTemplate
+        name: capi-demo-worker
+      version: v1.34.0

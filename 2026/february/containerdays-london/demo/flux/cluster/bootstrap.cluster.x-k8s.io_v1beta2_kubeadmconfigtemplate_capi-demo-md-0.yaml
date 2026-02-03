@@ -1,0 +1,29 @@
+apiVersion: bootstrap.cluster.x-k8s.io/v1beta2
+kind: KubeadmConfigTemplate
+metadata:
+  name: capi-demo-md-0
+  namespace: default
+spec:
+  template:
+    spec:
+      joinConfiguration:
+        nodeRegistration:
+          criSocket: /var/run/containerd/containerd.sock
+          kubeletExtraArgs:
+          - name: cloud-provider
+            value: external
+          name: '{{ local_hostname }}'
+      preKubeadmCommands:
+      - hostnamectl set-hostname "{{ ds.meta_data.hostname }}"
+      - echo "::1         ipv6-localhost ipv6-loopback localhost6 localhost6.localdomain6"
+        >/etc/hosts
+      - echo "127.0.0.1   {{ ds.meta_data.hostname }} {{ local_hostname }} localhost
+        localhost.localdomain localhost4 localhost4.localdomain4" >>/etc/hosts
+      - mkdir -p /etc/pre-kubeadm-commands
+      - for script in $(find /etc/pre-kubeadm-commands/ -name '*.sh' -type f | sort);
+        do echo "Running script $script"; "$script"; done
+      users:
+      - name: capv
+        sshAuthorizedKeys:
+        - ""
+        sudo: ALL=(ALL) NOPASSWD:ALL
