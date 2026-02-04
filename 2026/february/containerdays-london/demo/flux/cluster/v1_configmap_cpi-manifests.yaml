@@ -222,6 +222,7 @@ data:
     data:
       vsphere.conf: |
         global:
+          insecureFlag: true
           port: 443
           secretName: cloud-provider-vsphere-credentials
           secretNamespace: kube-system
