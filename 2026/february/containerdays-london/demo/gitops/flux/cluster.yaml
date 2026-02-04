@@ -11,6 +11,6 @@ spec:
     kind: GitRepository
     name: flux-system
     namespace: flux-system
-  path: ./2026/february/containerdays-london/demo/flux/cluster
+  path: ./2026/february/containerdays-london/demo/gitops/cluster
   prune: true
   suspend: true
