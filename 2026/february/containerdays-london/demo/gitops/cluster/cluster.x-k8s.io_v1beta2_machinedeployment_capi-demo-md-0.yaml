@@ -25,4 +25,4 @@ spec:
         apiGroup: infrastructure.cluster.x-k8s.io
         kind: VSphereMachineTemplate
         name: capi-demo-worker
-      version: v1.35.0
+      version: 1.34.0
