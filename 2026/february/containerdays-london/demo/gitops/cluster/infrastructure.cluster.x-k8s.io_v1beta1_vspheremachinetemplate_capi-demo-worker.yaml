@@ -22,4 +22,4 @@ spec:
       resourcePool: '*/Resources'
       server: 10.201.23.1
       storagePolicyName: ""
-      template: ubuntu-2204-kube-v1.34.0
+      template: ubuntu-2204-kube-v1.35.0
