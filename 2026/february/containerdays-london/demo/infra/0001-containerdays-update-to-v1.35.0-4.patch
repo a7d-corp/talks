@@ -1,0 +1,132 @@
+From 75acddfd5625ef14479d0d69c4795ffd1b15352c Mon Sep 17 00:00:00 2001
+From: Simon Weald <7832341+glitchcrab@users.noreply.github.com>
+Date: Tue, 10 Feb 2026 10:35:58 +0000
+Subject: [PATCH] containerdays: update to v1.35.0 (#4)
+
+---
+ ...eta2_machinedeployment_capi-demo-md-0.yaml |  4 +--
+ ...v1beta2_kubeadmcontrolplane_capi-demo.yaml |  4 +--
+ ...heremachinetemplate_capi-demo-v1-35-0.yaml | 25 +++++++++++++++++++
+ ...hinetemplate_capi-demo-worker-v1-35-0.yaml | 25 +++++++++++++++++++
+ .../demo/gitops/cluster/kustomization.yaml    |  2 ++
+ .../cluster/v1_configmap_cpi-manifests.yaml   |  2 +-
+ 6 files changed, 57 insertions(+), 5 deletions(-)
+ create mode 100644 2026/february/containerdays-london/demo/gitops/cluster/infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-v1-35-0.yaml
+ create mode 100644 2026/february/containerdays-london/demo/gitops/cluster/infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-worker-v1-35-0.yaml
+
+diff --git a/2026/february/containerdays-london/demo/gitops/cluster/cluster.x-k8s.io_v1beta2_machinedeployment_capi-demo-md-0.yaml b/2026/february/containerdays-london/demo/gitops/cluster/cluster.x-k8s.io_v1beta2_machinedeployment_capi-demo-md-0.yaml
+index fb83a26..94ce221 100644
+--- a/2026/february/containerdays-london/demo/gitops/cluster/cluster.x-k8s.io_v1beta2_machinedeployment_capi-demo-md-0.yaml
++++ b/2026/february/containerdays-london/demo/gitops/cluster/cluster.x-k8s.io_v1beta2_machinedeployment_capi-demo-md-0.yaml
+@@ -24,5 +24,5 @@ spec:
+       infrastructureRef:
+         apiGroup: infrastructure.cluster.x-k8s.io
+         kind: VSphereMachineTemplate
+-        name: capi-demo-worker
+-      version: v1.34.0
++        name: capi-demo-worker-v1-35-0
++      version: v1.35.0
+diff --git a/2026/february/containerdays-london/demo/gitops/cluster/controlplane.cluster.x-k8s.io_v1beta2_kubeadmcontrolplane_capi-demo.yaml b/2026/february/containerdays-london/demo/gitops/cluster/controlplane.cluster.x-k8s.io_v1beta2_kubeadmcontrolplane_capi-demo.yaml
+index 7e1d51b..225ca19 100644
+--- a/2026/february/containerdays-london/demo/gitops/cluster/controlplane.cluster.x-k8s.io_v1beta2_kubeadmcontrolplane_capi-demo.yaml
++++ b/2026/february/containerdays-london/demo/gitops/cluster/controlplane.cluster.x-k8s.io_v1beta2_kubeadmcontrolplane_capi-demo.yaml
+@@ -167,6 +167,6 @@ spec:
+       infrastructureRef:
+         apiGroup: infrastructure.cluster.x-k8s.io
+         kind: VSphereMachineTemplate
+-        name: capi-demo
++        name: capi-demo-v1-35-0
+   replicas: 1
+-  version: v1.34.0
++  version: v1.35.0
+diff --git a/2026/february/containerdays-london/demo/gitops/cluster/infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-v1-35-0.yaml b/2026/february/containerdays-london/demo/gitops/cluster/infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-v1-35-0.yaml
+new file mode 100644
+index 0000000..aa64ac1
+--- /dev/null
++++ b/2026/february/containerdays-london/demo/gitops/cluster/infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-v1-35-0.yaml
+@@ -0,0 +1,25 @@
++apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
++kind: VSphereMachineTemplate
++metadata:
++  name: capi-demo-v1-35-0
++  namespace: default
++spec:
++  template:
++    spec:
++      cloneMode: linkedClone
++      datacenter: giant-swarm
++      datastore: nfs_vm1
++      diskGiB: 25
++      folder: capi-talk
++      memoryMiB: 8192
++      network:
++        devices:
++        - dhcp4: true
++          networkName: v500-data
++      numCPUs: 2
++      os: Linux
++      powerOffMode: trySoft
++      resourcePool: '*/Resources'
++      server: 10.201.23.1
++      storagePolicyName: ""
++      template: ubuntu-2204-kube-v1.35.0
+diff --git a/2026/february/containerdays-london/demo/gitops/cluster/infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-worker-v1-35-0.yaml b/2026/february/containerdays-london/demo/gitops/cluster/infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-worker-v1-35-0.yaml
+new file mode 100644
+index 0000000..1d9d61a
+--- /dev/null
++++ b/2026/february/containerdays-london/demo/gitops/cluster/infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-worker-v1-35-0.yaml
+@@ -0,0 +1,25 @@
++apiVersion: infrastructure.cluster.x-k8s.io/v1beta1
++kind: VSphereMachineTemplate
++metadata:
++  name: capi-demo-worker-v1-35-0
++  namespace: default
++spec:
++  template:
++    spec:
++      cloneMode: linkedClone
++      datacenter: giant-swarm
++      datastore: nfs_vm1
++      diskGiB: 25
++      folder: capi-talk
++      memoryMiB: 8192
++      network:
++        devices:
++        - dhcp4: true
++          networkName: v500-data
++      numCPUs: 2
++      os: Linux
++      powerOffMode: trySoft
++      resourcePool: '*/Resources'
++      server: 10.201.23.1
++      storagePolicyName: ""
++      template: ubuntu-2204-kube-v1.35.0
+diff --git a/2026/february/containerdays-london/demo/gitops/cluster/kustomization.yaml b/2026/february/containerdays-london/demo/gitops/cluster/kustomization.yaml
+index 8081d31..3350e12 100644
+--- a/2026/february/containerdays-london/demo/gitops/cluster/kustomization.yaml
++++ b/2026/february/containerdays-london/demo/gitops/cluster/kustomization.yaml
+@@ -8,6 +8,8 @@ resources:
+   - controlplane.cluster.x-k8s.io_v1beta2_kubeadmcontrolplane_capi-demo.yaml
+   - infrastructure.cluster.x-k8s.io_v1beta1_vspherecluster_capi-demo.yaml
+   - infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-worker.yaml
++  - infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-worker-v1-35-0.yaml
+   - infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo.yaml
++  - infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-v1-35-0.yaml
+   - v1_configmap_cpi-manifests.yaml
+   - v1_configmap_csi-manifests.yaml
+diff --git a/2026/february/containerdays-london/demo/gitops/cluster/v1_configmap_cpi-manifests.yaml b/2026/february/containerdays-london/demo/gitops/cluster/v1_configmap_cpi-manifests.yaml
+index 17dac19..37f144e 100644
+--- a/2026/february/containerdays-london/demo/gitops/cluster/v1_configmap_cpi-manifests.yaml
++++ b/2026/february/containerdays-london/demo/gitops/cluster/v1_configmap_cpi-manifests.yaml
+@@ -162,7 +162,7 @@ data:
+           priorityClassName: system-node-critical
+           containers:
+           - name: vsphere-cpi
+-            image: registry.k8s.io/cloud-pv-vsphere/cloud-provider-vsphere:v1.34.0
++            image: registry.k8s.io/cloud-pv-vsphere/cloud-provider-vsphere:v1.35.0
+             imagePullPolicy: IfNotPresent
+             args:
+               - --cloud-provider=vsphere
+-- 
+2.52.0
+
