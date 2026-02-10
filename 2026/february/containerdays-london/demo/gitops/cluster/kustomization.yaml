@@ -8,8 +8,6 @@ resources:
   - controlplane.cluster.x-k8s.io_v1beta2_kubeadmcontrolplane_capi-demo.yaml
   - infrastructure.cluster.x-k8s.io_v1beta1_vspherecluster_capi-demo.yaml
   - infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-worker.yaml
-  - infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-worker-v1-35-0.yaml
   - infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo.yaml
-  - infrastructure.cluster.x-k8s.io_v1beta1_vspheremachinetemplate_capi-demo-v1-35-0.yaml
   - v1_configmap_cpi-manifests.yaml
   - v1_configmap_csi-manifests.yaml

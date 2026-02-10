@@ -167,6 +167,6 @@ spec:
       infrastructureRef:
         apiGroup: infrastructure.cluster.x-k8s.io
         kind: VSphereMachineTemplate
-        name: capi-demo-v1-35-0
+        name: capi-demo
   replicas: 1
-  version: v1.35.0
+  version: v1.34.0
