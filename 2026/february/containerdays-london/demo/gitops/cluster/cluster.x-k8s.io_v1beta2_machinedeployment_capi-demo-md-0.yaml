@@ -7,7 +7,7 @@ metadata:
   namespace: default
 spec:
   clusterName: capi-demo
-  replicas: 3
+  replicas: 2
   selector:
     matchLabels: {}
   template:
