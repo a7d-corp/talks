@@ -7,8 +7,8 @@ set -euo pipefail
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}" )" && pwd)"
 REPO_ROOT="$(git -C "$SCRIPT_DIR" rev-parse --show-toplevel)"
 KIND_CONFIG="$SCRIPT_DIR/kindconfig.yaml"
-KUBECONFIG_DIR="$SCRIPT_DIR/../kubeconfigs"
-FLUX_REPO_REL_PATH="2026/february/containerdays-london/demo/gitops/flux"
+KUBECONFIG_PATH="$SCRIPT_DIR/kubeconfig"
+FLUX_REPO_REL_PATH="2026/february/containerdays-london/demo/flux"
 FLUX_REPO_ABS_PATH="$REPO_ROOT/$FLUX_REPO_REL_PATH"
 KIND_CLUSTER_NAME="$(awk -F': ' '/^name:/ {print $2}' "$KIND_CONFIG" | tr -d '"[:space:]')"
 KIND_CLUSTER_NAME="${KIND_CLUSTER_NAME:-capi-talk}"
@@ -49,9 +49,9 @@ else
   kind create cluster --config "$KIND_CONFIG"
 fi
 
-kind get kubeconfig --name "$KIND_CLUSTER_NAME" > "$KUBECONFIG_DIR/kind.kubeconfig"
-chmod 600 "$KUBECONFIG_DIR/kind.kubeconfig"
-export KUBECONFIG="$KUBECONFIG_DIR/kind.kubeconfig"
+kind get kubeconfig --name "$KIND_CLUSTER_NAME" > "$KUBECONFIG_PATH"
+chmod 600 "$KUBECONFIG_PATH"
+export KUBECONFIG="$KUBECONFIG_PATH"
 
 clusterctl init --infrastructure vsphere
 
@@ -61,7 +61,7 @@ FLUX_CMD=(
   --repository "$GITHUB_REPO"
   --branch "$GIT_BRANCH"
   --path "$FLUX_REPO_REL_PATH"
-  --kubeconfig "$KUBECONFIG_DIR/kind.kubeconfig"
+  --kubeconfig "$KUBECONFIG_PATH"
   --token-auth
 )
 if [[ "${FLUX_GITHUB_PERSONAL:-false}" == "true" ]]; then
@@ -69,9 +69,3 @@ if [[ "${FLUX_GITHUB_PERSONAL:-false}" == "true" ]]; then
 fi
 
 "${FLUX_CMD[@]}"
-
-# apply secrets
-
-kubectl apply -f ../gitops/cluster/v1_secret_capi-demo.yaml
-kubectl apply -f ../gitops/cluster/v1_secret_vsphere-config-secret.yaml
-kubectl apply -f ../gitops/cluster/v1_secret_cloud-provider-vsphere-credentials.yaml
